@@ -9,6 +9,8 @@ var input = "";
 var inputArr = [];
 var iindex = 0;
 var steps = 0;
+var looped = 0;
+var maxLooped = 40;
 var output = document.getElementById("output");
 var ascii = [""," ","<br>","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","R","S","T","U","W","Y","Z","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","r","s","t","u","w","y","z","0","1","2","3","4","5","6","7","8","9","+","-","<",">","[","]",".",",","#","$","@",":","~"];
 var ignore = false;
@@ -49,7 +51,6 @@ var commands = {
     if (ascii.length > data[p])
     {
     output.innerHTML += ascii[data[p]];
-    console.log(ascii[data[p]]);
     }
   },
   "[":function(){
@@ -67,7 +68,7 @@ var commands = {
       comP = loops[loops.length - 1];
     }
     else{
-      loops[loops.length - 1] = undefined;
+      loops.splice(loops.length - 1,1);
     }
     }
     else{
@@ -103,6 +104,15 @@ var commands = {
   },
   ";":function(){
     
+  },
+  "!":function(){
+    output.innerHTML = "output: ";
+  },
+  "*":function(){
+    data[p] = inputArr.length - 1;
+  },
+  "^":function(){
+    console.log("pointer: " + p + " command pointer: " + comP);
   }
 }
 function setup(){
@@ -110,12 +120,11 @@ function setup(){
   input = document.getElementById("input").value;
   inputArr = input.split("");
   BFArr = BFCode.split("");
-  console.log(BFArr);
 }
 function step(){
   if (comP >= BFArr.length || comP == 0)
   {
-    resetC();
+    //resetC();
   }
   steps++;
   if (commands[BFArr[p]] != undefined)
@@ -127,6 +136,9 @@ function step(){
   comP++;
 }
 function aStep(){
+  input = document.getElementById("input").value;
+inputArr = input.split("");
+iindex = 0;
   if (comP >= BFArr.length || comP == 0)
 {
   resetC();
@@ -135,6 +147,7 @@ while (BFArr[comP] != ";" && comP != BFArr.length){
   step();
 }
 step();
+
 }
 function compile(){
   resetC()
