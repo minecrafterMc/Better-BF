@@ -1,15 +1,16 @@
-var BFCode = "+[@.]";
+var BFCode = "";
 var BFArr = [];
 var p = 0;
 var comP = 0;
 var data = [0];
 var tempVal = 0;
 var loops = [];
-var input = "A";
+var input = "";
 var inputArr = [];
 var iindex = 0;
+var steps = 0;
 var output = document.getElementById("output");
-var ascii = [""," ","\n","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","R","S","T","U","W","Y","Z","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","r","s","t","u","w","y","z","0","1","2","3","4","5","6","7","8","9"];
+var ascii = [""," ","<br>","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","R","S","T","U","W","Y","Z","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","r","s","t","u","w","y","z","0","1","2","3","4","5","6","7","8","9","+","-","<",">","[","]",".",",","#","$","@",":","~"];
 var ignore = false;
 function getIndexByValuee(array,value){
   let i = 0;
@@ -70,7 +71,7 @@ var commands = {
     }
     }
     else{
-      console.error("missing '['; char " + comP);
+      console.error("missing '['; At char " + comP+ " on step: "+steps);
     }
     ignore = false;
   },
@@ -79,6 +80,7 @@ var commands = {
     if (place != -1){
       data[p] = place;
     }
+    iindex++;
   },
   "~":function(){
     console.log(data);
@@ -98,26 +100,62 @@ var commands = {
     {
       data[p] = 0;
     }
+  },
+  ";":function(){
+    
   }
 }
 function setup(){
-  document.getElementById("code").innerHTML += BFCode;
+  BFCode = document.getElementById("code").value;
+  input = document.getElementById("input").value;
   inputArr = input.split("");
   BFArr = BFCode.split("");
+  console.log(BFArr);
 }
 function step(){
-  console.log(comP);
+  if (comP >= BFArr.length || comP == 0)
+  {
+    resetC();
+  }
+  steps++;
   if (commands[BFArr[p]] != undefined)
   {
   if (!ignore || BFArr[comP] == "]"){
     commands[BFArr[comP]]();
   }
-  comP++;
   }
+  comP++;
+}
+function aStep(){
+  if (comP >= BFArr.length || comP == 0)
+{
+  resetC();
+}
+while (BFArr[comP] != ";" && comP != BFArr.length){
+  step();
+}
+step();
 }
 function compile(){
+  resetC()
   while (comP != BFArr.length){
     step()
   }
 }
+
+function resetC(){
+  BFCode = document.getElementById("code").value;
+comP = 0;
+data = [0];
+p = 0;
+tempVal = 0;
+BFArr = [];
+input = "";
+output.innerHTML = "output: ";
+loops = [];
+inputArr = [];
+iindex = 0;
+steps = 0;
+ignore = false;
 setup();
+}
