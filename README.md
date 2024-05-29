@@ -10,6 +10,7 @@
 * "$": sets data at the pointer to data from temporary storage
 * "@": works like "+" but it goes back to 0 if the value is outside the ascii table
 * ";": it places a checkpoint, so you can pause code interpretation with the "step to checkpoint" button
+
 **Modified commands:**
 * "+": it now has no value cap and can go up to the integer limit
 * "-": when it substracts from 0, it goes to the value corresponding to the top of the ascii table
