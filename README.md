@@ -4,7 +4,7 @@
 ## My own brainf*ck extention called BF++.
 
 **New commands:**
-* *~*: logs the data storage into the console
+* "~": logs the data storage into the console
 * ":": outputs the data at the pointer as an integer
 * "#": saves data at the pointer to temporary storage (it always overrides the previous value)
 * "$": sets data at the pointer to data from temporary storage
@@ -15,4 +15,4 @@
 
 
 
-*Note: rhe ascii table is diffrent than in regular BF. Type "console.log(ascii)" to see the new table*
+**Note: the ascii table is diffrent than in regular BF. Type "console.log(ascii)" to see the new table**
